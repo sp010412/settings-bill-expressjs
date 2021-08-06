@@ -7,6 +7,7 @@ module.exports = function SettingsBill() {
 
     let actionList = [];
     const moment = require('moment');
+    moment().format()
 
     function resetButton() {
         actionList = [];
@@ -42,7 +43,7 @@ module.exports = function SettingsBill() {
         actionList.push({
             type: action,
             cost,
-            timestamps:  moment(new Date()).fromNow()
+            timestamp: new Date()
         });
     }
 

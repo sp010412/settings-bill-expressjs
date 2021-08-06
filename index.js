@@ -2,12 +2,16 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const SettingsBill = require('./settings-bill');
+const moment = require('moment');
 const handlebarSetup = exphbs({
     partialsDir: "./views/partials",
     viewPath: './views',
-    layoutsDir: './views/layouts'
+    layoutsDir: './views/layouts',
+    helpers:{'fixedTime':function (){
+        return moment(this.timestamp).fromNow()
+    }}
 });
-// const moment = require('moment');
+
 
 const app = express();
 const settingsBill = SettingsBill();
