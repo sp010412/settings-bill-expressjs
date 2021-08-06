@@ -7,7 +7,7 @@ const handlebarSetup = exphbs({
     viewPath: './views',
     layoutsDir: './views/layouts'
 });
-const moment = require('moment');
+// const moment = require('moment');
 
 const app = express();
 const settingsBill = SettingsBill();
@@ -52,22 +52,11 @@ app.post('/action', function (req, res) {
 });
 
 app.get('/actions', function (req, res) {
-
-    const actions = settingsBill.actions();
-    actions.forEach((value) =>{
-        value.timestamp = moment(value.timestamp).fromNow();
-    });
-    res.render('actions', { actions });
+    res.render('actions', { actions: settingsBill.actions() });
 });
 
 
 app.get('/actions/:actionType', function (req, res) {
-
-    const actions = settingsBill.actions();
-    actions.forEach((value) =>{
-        value.timestamp = moment(value.timestamp).fromNow();
-    })
-
     const actionType = req.params.actionType;
     res.render('actions', { actions: settingsBill.actionsFor(actionType) });
 });
