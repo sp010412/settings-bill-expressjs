@@ -12,11 +12,8 @@ const handlebarSetup = exphbs({
     }}
 });
 
-
 const app = express();
 const settingsBill = SettingsBill();
-
-
 
 app.engine('handlebars', handlebarSetup);
 app.set('view engine', 'handlebars');
@@ -31,10 +28,24 @@ app.use(bodyParser.json())
 
 //default route  
 app.get('/', function (req, res) {
-    res.render('index', {
-        settings: settingsBill.getSettings(),
-        totals: settingsBill.totals()
-    });
+    if (settingsBill.hasReachedCriticalLevel()) {
+        res.render('index', {
+            settings: settingsBill.getSettings(),
+            totals: settingsBill.totals(),
+            class: "danger"
+        });
+    } else if (settingsBill.hasReachedWarningLevel()) {
+        res.render('index', {
+            settings: settingsBill.getSettings(),
+            totals: settingsBill.totals(),
+            class: "warning"
+        });
+    } else {
+        res.render('index', {
+            settings: settingsBill.getSettings(),
+            totals: settingsBill.totals(),
+        });
+    }
 });
 
 app.post('/settings', function (req, res) {
