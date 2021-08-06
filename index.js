@@ -7,13 +7,18 @@ const handlebarSetup = exphbs({
     partialsDir: "./views/partials",
     viewPath: './views',
     layoutsDir: './views/layouts',
-    helpers:{'fixedTime':function (){
-        return moment(this.timestamp).fromNow()
-    }}
+    helpers: {
+        'fixedTime': function () {
+            return moment(this.timestamp).fromNow()
+        }
+    }
 });
+
 
 const app = express();
 const settingsBill = SettingsBill();
+
+
 
 app.engine('handlebars', handlebarSetup);
 app.set('view engine', 'handlebars');
@@ -32,13 +37,15 @@ app.get('/', function (req, res) {
         res.render('index', {
             settings: settingsBill.getSettings(),
             totals: settingsBill.totals(),
-            class: "danger"
+            color: "danger"
+
         });
     } else if (settingsBill.hasReachedWarningLevel()) {
         res.render('index', {
             settings: settingsBill.getSettings(),
             totals: settingsBill.totals(),
-            class: "warning"
+            color: "warning"
+
         });
     } else {
         res.render('index', {
@@ -46,7 +53,9 @@ app.get('/', function (req, res) {
             totals: settingsBill.totals(),
         });
     }
+    
 });
+
 
 app.post('/settings', function (req, res) {
 

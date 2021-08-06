@@ -103,6 +103,7 @@ module.exports = function SettingsBill() {
         return total >= criticalLevel;
     }
 
+
     return {
         resetButton,
         setSettings,
@@ -112,6 +113,6 @@ module.exports = function SettingsBill() {
         actionsFor,
         totals,
         hasReachedWarningLevel,
-        hasReachedCriticalLevel
+        hasReachedCriticalLevel,
     }
 }
