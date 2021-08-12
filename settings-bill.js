@@ -42,19 +42,18 @@ module.exports = function SettingsBill() {
     function recordAction(action) {
         if (!hasReachedCriticalLevel()) {
 
-        let cost = 0;
+            let cost = 0;
             if (action === 'sms') {
                 cost = smsCost;
             }
             else if (action === 'call') {
                 cost = callCost;
             }
-
-            actionList.push({
-                type: action,
-                cost,
-                timestamp: new Date()
-            });
+                actionList.push({
+                    type: action,
+                    cost,
+                    timestamp: new Date()
+                });
         }
     }
 
@@ -67,7 +66,8 @@ module.exports = function SettingsBill() {
 
         for (let index = 0; index < actionList.length; index++) {
             const action = actionList[index];
-            if (action.type === type) {
+            //add && action.cost > 0 so when cost is 0 it must not be recorded
+            if (action.type === type && action.cost > 0) {
                 filteredActions.push(action);
             }
         }
